@@ -1,0 +1,25 @@
+<article class="col-sm-12 pb-5">
+    <section class="col-sm-10 mt-5 mx-auto">
+        <nz-table *ngIf="users.length" nzBordered #table [nzData]="users" [nzLoading]="loading" [nzTotal]="total" [nzPageSize]="pageSize" [nzPageIndex]="pageIndex">
+            <thead>
+                <tr>
+                    <th [nzWidth]="column.colWidth" *ngFor="let column of listOfColumns" [nzSortOrder]="column.sortOrder" [nzSortFn]="column.sortFn" [nzSortDirections]="column.sortDirections" [nzFilterMultiple]="column.filterMultiple" [nzFilters]="column.listOfFilter" [nzFilterFn]="column.filterFn">
+                        {{column.name}}</th>
+                    <th class="text-center" nzWidth="15%">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let user of table.data">
+                    <td>{{user.id}}</td>
+                    <td>{{user.name}}</td>
+                    <td>{{user.email}}</td>
+                    <td>{{user.address.city}}</td>
+                    <td class="text-center">
+                        <button (click)="showModal(user)" nz-button nzType="primary">Show location</button>
+                    </td>
+                    <nz-modal footer={null} [(nzVisible)]="isVisible"></nz-modal>
+                </tr>
+            </tbody>
+        </nz-table>
+    </section>
+</article>
