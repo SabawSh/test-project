@@ -1,0 +1,89 @@
+<h1 mat-dialog-title>Label config</h1>
+<div mat-dialog-content>
+  <form [formGroup]="dialogForm" class="form">
+    <mat-tab-group
+      mat-stretch-tabs="false"
+      mat-align-tabs="start"
+      animationDuration="0ms"
+    >
+      <!-- <mat-tab label="Action">Action</mat-tab> -->
+      <mat-tab label="Content">
+        <mat-tab-group
+          mat-stretch-tabs="false"
+          mat-align-tabs="start"
+          animationDuration="0ms"
+        >
+          <mat-tab label="Static">
+            <mat-form-field class="example-full-width">
+              <mat-label>Label</mat-label>
+              <input
+                matInput
+                placeholder="type label content"
+                formControlName="label"
+              />
+            </mat-form-field>
+          </mat-tab>
+          <mat-tab label="Dynamic"></mat-tab>
+        </mat-tab-group>
+      </mat-tab>
+      <mat-tab label="View">
+        <mat-tab-group
+          mat-stretch-tabs="false"
+          mat-align-tabs="start"
+          animationDuration="0ms"
+        >
+          <mat-tab label="Text">
+            <mat-form-field class="example-full-width">
+              <mat-label>Fill</mat-label>
+              <input
+                matInput
+                type="color"
+                placeholder="color"
+                formControlName="color"
+              />
+            </mat-form-field>
+            <mat-form-field class="example-full-width">
+              <mat-label>Font Size</mat-label>
+              <input
+                matInput
+                placeholder="content font size"
+                type="number"
+                formControlName="fontSize"
+              />
+            </mat-form-field>
+          </mat-tab>
+          <mat-tab label="Shape">
+            <mat-form-field class="example-full-width">
+              <mat-label>Fill</mat-label>
+              <input
+                matInput
+                formControlName="fill"
+                type="color"
+                placeholder="color"
+              />
+            </mat-form-field>
+            <mat-form-field class="example-full-width">
+              <mat-label>Width</mat-label>
+              <input matInput placeholder="width" formControlName="width" />
+            </mat-form-field>
+            <mat-form-field class="example-full-width">
+              <mat-label>Height</mat-label>
+              <input matInput placeholder="height" formControlName="height" />
+            </mat-form-field>
+          </mat-tab>
+        </mat-tab-group>
+      </mat-tab>
+      <!-- <mat-tab label="Animation">Animation</mat-tab> -->
+    </mat-tab-group>
+  </form>
+</div>
+<div mat-dialog-actions>
+  <button
+    mat-flat-button
+    type="submit"
+    color="primary"
+    (click)="onSubmit(dialogForm)"
+  >
+    Save
+  </button>
+</div>
