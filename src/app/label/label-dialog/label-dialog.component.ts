@@ -1,8 +1,6 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
-import { Subject, Subscription } from 'rxjs';
-import { ILabelData } from 'src/app/interfaces/label-data';
 import { LabelConfigService } from 'src/app/label-config.service';
 
 
@@ -11,9 +9,8 @@ import { LabelConfigService } from 'src/app/label-config.service';
   templateUrl: './label-dialog.component.html',
   styleUrls: ['./label-dialog.component.scss']
 })
-export class LabelDialogComponent implements OnInit, OnDestroy {
+export class LabelDialogComponent implements OnInit {
   dialogForm!: FormGroup;
-  unsubscribe$!: Subscription;
 
   constructor(
     public dialogRef: MatDialogRef<LabelDialogComponent>,
@@ -35,11 +32,6 @@ export class LabelDialogComponent implements OnInit, OnDestroy {
       height: new FormControl(''),
     });
 
-
-    this.unsubscribe$ = this.labelConfigService.labelData$.subscribe((result: ILabelData | null) => {
-      console.log(result);
-
-    })
   }
 
   onSubmit(form: FormGroup) {
@@ -47,15 +39,11 @@ export class LabelDialogComponent implements OnInit, OnDestroy {
     this.labelConfigService.labelConfig = form.value;
     this.labelConfigService.createLabel();
 
-    // setTimeout(() => {
-    //   //send request 
-    //   console.log(this.labelData);
+
     this.onNoClick();
-    // }, 2000);
+
   }
 
 
-  ngOnDestroy(): void {
-    this.unsubscribe$.unsubscribe();
-  }
+
 }
