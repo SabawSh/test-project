@@ -3,14 +3,13 @@ import * as THREE from "three";
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import { SVGLoader } from 'three/examples/jsm/loaders/SVGLoader';
 import { CSS2DRenderer, CSS2DObject } from 'three/examples/jsm/renderers/CSS2DRenderer';
+import { DragControls } from 'three/examples/jsm/controls/DragControls';
 
 
 @Injectable({
   providedIn: 'root'
 })
 export class ThreeConfigService {
-
-  public svgObject!: THREE.Group<THREE.Object3DEventMap>;
 
   constructor() { }
 
@@ -112,41 +111,31 @@ export class ThreeConfigService {
       0.01,
       1000
     );
-    const labelRenderer = new CSS2DRenderer();
-    labelRenderer.setSize(container.clientWidth, container.clientWidth);
-    labelRenderer.domElement.style.position = "absolute";
-    labelRenderer.domElement.style.top = "0";
-
-    document.body.appendChild(labelRenderer.domElement);
 
 
+    document.body.appendChild(renderer.domElement);
 
 
+    const controls = new OrbitControls(camera, renderer.domElement);
 
-
-
-
-    const controls = new OrbitControls(camera, labelRenderer.domElement);
-    controls.minDistance = 5;
-    controls.maxDistance = 100;
     scene.add(camera);
+
     const ambientLight = new THREE.AmbientLight("#888888");
     const pointLight = new THREE.PointLight("#ffffff", 2, 800);
-    // const controls = new OrbitControls(camera, renderer.domElement);
+
     const animate = () => {
+
       renderer.render(scene, camera);
-      labelRenderer.render(scene, camera);
       controls.update();
 
       requestAnimationFrame(animate);
     };
 
+
+
     renderer.setSize(container.clientWidth, container.clientHeight);
-    labelRenderer.setSize(window.innerWidth, window.innerHeight);
     scene.add(ambientLight, pointLight);
     camera.position.z = 100;
-
-    controls.enablePan = true;
 
     container.append(renderer.domElement);
     window.addEventListener("resize", () => {

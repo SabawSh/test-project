@@ -1,3 +1,9 @@
-<button class="z-index" mat-raised-button (click)="openDialog()">
+<button
+  class="z-index create-label"
+  #createLabelBtn
+  cdkDrag
+  (cdkDragEnded)="setLabelPosition($event)"
+  (click)="openDialog()"
+>
   Create Label
 </button>

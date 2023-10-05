@@ -18,6 +18,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MAT_FORM_FIELD_DEFAULT_OPTIONS, MatFormFieldModule } from '@angular/material/form-field';
 import { MAT_DIALOG_DEFAULT_OPTIONS, MatDialogConfig, MatDialogModule } from '@angular/material/dialog';
 import { MatTabsModule } from '@angular/material/tabs';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 
 
 
@@ -45,7 +46,9 @@ import { MatTabsModule } from '@angular/material/tabs';
     MatFormFieldModule,
     MatDialogModule,
     MatTabsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    DragDropModule
+
   ],
   providers: [
     { provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: { panelClass: 'mat-dialog-override' } as MatDialogConfig },

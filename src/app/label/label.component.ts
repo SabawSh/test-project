@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, Input, OnInit, Renderer2, ViewChild } from '@angular/core';
 import { LabelDialogComponent } from './label-dialog/label-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
+import { LabelConfigService } from '../label-config.service';
+import { CdkDragEnd } from '@angular/cdk/drag-drop';
 
 
 @Component({
@@ -10,19 +12,25 @@ import { MatDialog } from '@angular/material/dialog';
 })
 export class LabelComponent implements OnInit {
 
-
-  constructor(public dialog: MatDialog) { }
+  constructor(private dialog: MatDialog, private labelConfigService: LabelConfigService, private renderer: Renderer2) { }
 
   openDialog(): void {
+
     this.dialog.open(LabelDialogComponent, {
       height: '500px',
       minWidth: '700px'
     });
-
   }
 
 
   ngOnInit(): void {
+  }
+
+  setLabelPosition(event: CdkDragEnd) {
+    const { x, y } = event.source.getFreeDragPosition();
+
+    this.labelConfigService.labelBottonPositionX = x;
+    this.labelConfigService.labelBottonPositionY = y;
 
   }
 

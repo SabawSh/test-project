@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
+import { Subject, Subscription } from 'rxjs';
 import { ILabelData } from 'src/app/interfaces/label-data';
 import { LabelConfigService } from 'src/app/label-config.service';
 
@@ -10,15 +11,15 @@ import { LabelConfigService } from 'src/app/label-config.service';
   templateUrl: './label-dialog.component.html',
   styleUrls: ['./label-dialog.component.scss']
 })
-export class LabelDialogComponent implements OnInit {
+export class LabelDialogComponent implements OnInit, OnDestroy {
   dialogForm!: FormGroup;
-  labelData!: ILabelData;
-
+  unsubscribe$!: Subscription;
 
   constructor(
     public dialogRef: MatDialogRef<LabelDialogComponent>,
     public labelConfigService: LabelConfigService
   ) { }
+
 
   onNoClick(): void {
     this.dialogRef.close();
@@ -34,19 +35,27 @@ export class LabelDialogComponent implements OnInit {
       height: new FormControl(''),
     });
 
+
+    this.unsubscribe$ = this.labelConfigService.labelData$.subscribe((result: ILabelData | null) => {
+      console.log(result);
+
+    })
   }
 
   onSubmit(form: FormGroup) {
-    console.log(this.dialogForm.value.label);
 
     this.labelConfigService.labelConfig = form.value;
-    this.labelData = this.labelConfigService.createLabel();
+    this.labelConfigService.createLabel();
 
-    setTimeout(() => {
-      //send request 
-      console.log(this.labelData);
-      this.onNoClick();
-    }, 2000);
+    // setTimeout(() => {
+    //   //send request 
+    //   console.log(this.labelData);
+    this.onNoClick();
+    // }, 2000);
   }
 
+
+  ngOnDestroy(): void {
+    this.unsubscribe$.unsubscribe();
+  }
 }

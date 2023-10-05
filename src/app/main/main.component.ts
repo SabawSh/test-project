@@ -33,7 +33,6 @@ export class MainComponent implements OnInit {
   ngOnInit(): void {
     const scene = this.threeConfigService.setupScene(this.container);
     const { object } = this.threeConfigService.renderSVG(this.svgPath, this.defaultExtrusion, this.fillColor, this.stokeColor);
-    this.threeConfigService.svgObject = object;
     scene.add(object);
 
 
